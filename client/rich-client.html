@@ -16,12 +16,15 @@
 <hr>
 
 <h2>View the "Current Time" Message</h2>
+<p><button id="btn-time">See contents of <kbd>/timeJSON</kbd></button></p>
+<div id="output-time">???</div>
 
 <p>You do this!</p>
 
 <hr>
 
 <h2>A Dank Meme ...</h2>
+<img src="/dankmemes" alt="spongegar" id="img-dankmemes" width="200">
   
 </body>
 <script>
@@ -43,6 +46,25 @@ const getJsonFetch = async (url, callback) => {
   callback(json);
 };
 
+// const getImgFetch = async (url, callback) => {
+//     let img;
+//     try {
+//         const response = await fetch(url, {
+//             method: "GET",
+//             headers: {
+//                 "Accept": "image/png"
+//             }
+//         });
+//         img = await response.url;
+//         console.log(img);
+//     }
+//     catch(error){
+//         console.log("ERROR", error);
+//         img = null;
+//     }
+//     callback(img);
+// }
+
 const btnHello = document.querySelector("#btn-hello");
 const outputHello = document.querySelector("#output-hello");
 
@@ -52,6 +74,27 @@ const helloCallback = json => {
 };
 
 btnHello.onclick = () => getJsonFetch(helloJSONURL, helloCallback);
+
+// TIME JSON
+const btnTime = document.querySelector("#btn-time");
+const outputTime = document.querySelector("#output-time");
+
+const timeJSONURL = "/timeJSON";
+const timeCallback = json => {
+    console.log(json);
+  outputTime.innerHTML = json.time || "No <kbd>.message</kbd> value found!";
+};
+
+btnTime.onclick = () => getJsonFetch(timeJSONURL, timeCallback);
+
+// dankmemes IMG
+// const imgDankmemes = document.querySelector("#img-dankmemes");
+
+// const imgURL = "/dankmemes";
+// const dankmemesCallback = img => {
+//     imgDankmemes.src = img;
+// }
+// getJsonFetch(imgURL, dankmemesCallback)
 
 </script>
 </html>
